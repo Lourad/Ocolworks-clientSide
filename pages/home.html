@@ -6,7 +6,6 @@
       <div  class="row">
         <div class="col s3" style="position: fixed;">
       	  <a href="">
-          <div class=" input-field">
           <div class="card" ng-click="showModal()">
             <div class="card-image">
               <img src="images/office2.jpg">
@@ -16,7 +15,6 @@
             <div  class="card-action">
               <center>Create Project</center>
             </div>
-          </div>
           </div>
           </a>
           <div class="row input-field">
@@ -85,6 +83,7 @@
           </div>
       	
         <div ng-if="switchVal" class="offset-s3 col s9">
+
           <div class="row">
             <div ng-repeat="project in projects | filter:searchProject">   
 
@@ -94,7 +93,9 @@
                 <div class="card-action">
                   <center><span  style="color:black">{{ project.name }}</span></center>
                 </div>
-                <div class="blue divider"></div>
+                <div class="progress">
+                  <div class="blue determinate" style="width: 70%"></div>
+                </div>
                 <div class="card-content">
                   <h6>Date Started : {{ project.startDate }}<h6>
                   <h6>Due Date : {{ project.dueDate }}</h6>
@@ -171,8 +172,8 @@
                 <input id="icon_prefix" type="text" ng-model="pName" autofocus required >
 
                 <div class="input-field col s12">
-                  <textarea id="textarea1" ng-model="pDesc" class="materialize-textarea"></textarea>
-                  <label for="textarea1">Textarea</label>
+                  <textarea maxlength="500" id="textarea1" ng-model="pDesc" class="materialize-textarea"></textarea>
+                  <label for="textarea1">Description</label>
                 </div>
               </div>
               <div class="col s6">

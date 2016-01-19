@@ -1,5 +1,11 @@
     havocApp.controller('fullprofileController', function($scope, $http, $timeout) {
 
+        $scope.avatarImg = "avatar1.png";
+
+        $scope.changeAcc = function(){
+            $scope.avatarImg = "avatar1.png";
+        }
+
             $http.get('https://frozen-wave-5827.herokuapp.com/sessions')
             .success(function(response) {
                 $scope.user = response; 

@@ -1,10 +1,10 @@
-<div ng-controller="thisProject" class="col s6">
-	<div  class="row">
+
+<div  ng-controller="thisProject" class="row">
 
 		<div class="col s3" style="position: fixed;">
 
               <div class="card">
-                <div style=" padding:0px;" class="card-action blue">
+                <div style=" padding:0px;" class="card-action blue lighten-2">
                   <center><h5>{{ proj.name }}</h5></center><br />
                   
                 </div>
@@ -27,7 +27,7 @@
                   	</div>
                   </div>
               	</center>
-                	<p style="text-align: justify; text-justify: inter-word;"><b >Description :</b> {{ proj.descriptions }}</p>
+                	<p class=""style="text-align: justify; text-justify: inter-word;"><b >Description :</b> {{ proj.descriptions }}</p>
                   <h6><b>Date Started :</b> {{ proj.startDate }}</h6>
                   <h6><b>Due Date :</b> {{ proj.dueDate }}</h6>
                   <h6><b>Status :</b> {{ proj.project_confirm }}</h6>
@@ -36,63 +36,116 @@
 
                 </div>
               </div>
-            
+
+              <div class="row">
+                <div class="col s6">
+                  <button class="z-depth-3 blue lighten-1 waves-effect waves-light btn "  ng-click="createProject()"><small>Edit Project</small> </button>
+                </div>
+                <div class="col s6">
+                  <button class="z-depth-3 blue lighten-1 waves-effect waves-light btn "  ng-click="createProject()"><small>New Task</small></button>
+                </div>
+              </div>
         	
 		</div>
 	
-        <div class="offset-s3 col s9">
-        	<div class="row">
-				<div class="col s3">
-					
+    <div class="offset-s3 col s9">		
+
+        <div style="margin-top:5px;" class="row">
+          <div class="col s4 input-field">
+              <input id="search" type="text" ng-model="searchTask" class="validate">
+              <label for="search">Search Task</label>
+          </div>
+
+          <div class="col s4 right">
+              
+
+                  <div style="margin-top:5px;"  class="switch">
+                <label>
+                <input  id="switch2" ng-click="switchFnc2()" type="checkbox">
+                <span class="lever"></span>
+                </label>
+                Show My Tasks Only
                 </div>
-			</div>
-
-				
 
 
-				  	
-    <div class="row" ng-repeat="task in tasks">
-      
+                  <div  style="margin-top:5px;"  class="switch">
+                <label>
+                <input  id="switch2" ng-click="switchFnc2()" type="checkbox">
+                <span class="lever"></span>
+                </label>
+                Hide Completed Projects
+                </div>
 
 
-        <div class="col s3 card">
-    <div ng-model="collapsed" ng-click="collapsed=!collapsed" class="card-content">
-      <span class="card-title activator grey-text text-darken-4" title="{{task.descriptions}}">{{task.name}}
-      	<div class="divider blue"></div>
-      	    <h6><b>Due Date :</b> {{ task.dueDate }}</h6>
-    <h6><b>Status :</b> {{ task.project_confirm }}</h6>
-    </div>
-  </div>
+          </div>
 
-  <div class="col s8 offset-s1 card" ng-show="collapsed"> 
+             
 
-       <ul class="collection with-header" >
-        <li ng-repeat="subtask in subtasks" class="collection-item">{{ subtask.name }}  </li>
-        <li class="collection-item">
-
-        	<div class="col s10">
-        		<input  type="text">
-        	</div>
-        	<div class="col s2">
-        		<a class="right waves-effect waves-light btn">Add</a>
-        	</div>
-        </li>
-
-      </ul>
-
-  </div>
-
-
-
-    </div>
-
-
-
-			
         </div>
+    
+ 
+
+    <div ng-repeat="task in tasks | filter:searchTask">
+
+        
+
+        <div class="col s3">
+        <div class="card" ng-init="passTID = task.id" >
+
+            <a href="" ng-click="showModalEdit(passTID);" class="blue lighten-2 material-icons right">settings</a>
+
+            <div ng-click="showModal(passTID);" class="card-content">
+              <span class="truncate card-title activator grey-text text-darken-4" title="{{task.descriptions}}">{{task.name}}
+              <div style="margin-top:-5px" class="divider blue"></div>
+              <h6><b>Due Date :</b> {{ task.dueDate }}</h6>
+              <h6><b>Status :</b> {{ task.project_confirm }}</h6>
+            </div>
+        </div>
+        </div>
+
+
+
+
+        <div id="modal{{task.id}}" class="modal white">
+          <a href="" ng-click="closeModal(passTID);" class="red lighten-2 material-icons right">close</a>
+          <a href="" ng-click="showModalEdit(passTID);" class="blue lighten-2 material-icons right">settings</a>
+          <div class="modal-content ">
+
+            <ul class="collection with-header" >
+              <li ng-repeat="subtask in task.subtasks" class="collection-item">{{ subtask.name }}  </li>
+              <li class="collection-item">
+
+              <div class="col s10">
+                <input  type="text">
+              </div>
+
+              <div class="col s2">
+                <a class="right waves-effect waves-light btn">Add</a>
+              </div>
+
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+
+        <div id="modalEdit{{task.id}}" class="modal white">
+          <a href="" ng-click="closeModalEdit(passTID);" class="red lighten-2 material-icons right">close</a>
+          <div class="modal-content ">
+
+           edita
+
+          </div>
+        </div>
+
     </div>
-	
+
+    </div>
+
 </div>
+	
+
 
 
 
